@@ -20,11 +20,31 @@ namespace FrameWorksExamen.Controllers
         }
 
         // GET: Events
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchField, string searchField2)
         {
-              return _context.Event != null ? 
-                          View(await _context.Event.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Event'  is null.");
+            var events = from e in _context.Event
+                         where (e.deleted.Equals(false))
+                         orderby e.Name
+                         select e;
+
+            if (!string.IsNullOrEmpty(searchField))
+            {
+                events = from e in events
+                         where e.Name.Contains(searchField)
+                         orderby e.Name
+                         select e;
+            }
+            if (!string.IsNullOrEmpty(searchField2))
+            {
+                events = from e in events
+                         where e.Description.Contains(searchField2)
+                         orderby e.Description
+                         select e;
+            }
+
+            return _context.Event != null ?
+                          View(await events.ToListAsync()) :
+                          Problem("Entity set 'SL_Frameworks_FinalContext.Event'  is null.");
         }
 
         // GET: Events/Details/5
@@ -148,7 +168,8 @@ namespace FrameWorksExamen.Controllers
             var @event = await _context.Event.FindAsync(id);
             if (@event != null)
             {
-                _context.Event.Remove(@event);
+                //_context.Event.Remove(@event);
+                @event.deleted = true;
             }
             
             await _context.SaveChangesAsync();

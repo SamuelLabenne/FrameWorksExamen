@@ -9,6 +9,20 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<p>
+    <form asp-action="Index" asp-controller="Events" method="get">
+
+        Select:
+        <input type="text" name="searchField" />
+        <input type="submit" value="Filter by name" />
+    </form>
+    <form asp-action="Index" asp-controller="Events" method="get">
+
+        Select:
+        <input type="text" name="searchField2" />
+        <input type="submit" value="Filter by description" />
+    </form>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -27,9 +41,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.people)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.deleted)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -51,9 +63,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.people)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.deleted)
-            </td>
+           
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
