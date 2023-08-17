@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FrameWorksExamen.Data;
 using FrameWorksExamen.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FrameWorksExamen.Controllers
 {
@@ -64,7 +65,7 @@ namespace FrameWorksExamen.Controllers
 
             return View(@event);
         }
-
+        [Authorize(Roles="admin")]
         // GET: Events/Create
         public IActionResult Create()
         {

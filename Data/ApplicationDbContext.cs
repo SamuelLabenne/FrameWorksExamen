@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using FrameWorksExamen.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace FrameWorksExamen.Data
 {
+    //public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
