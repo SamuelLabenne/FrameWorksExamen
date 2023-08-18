@@ -41,7 +41,7 @@ namespace FrameWorksExamen.Controllers
 
             InviteIndexViewModel inviteIndexViewModel = new InviteIndexViewModel()
             {
-                FilteredInvites = await filteredInvites.ToListAsync(),
+                FilteredInvites = await filteredInvites.Include(i => i.Event).Include(i => i.Person).ToListAsync(),
                 SelectedEvent = selectedEvent,
                 SelectedPerson = selectedPerson,
                 PeopleToSelect = new SelectList(await peopleToSelect.ToListAsync(), "Id", "Name", selectedPerson),
