@@ -22,9 +22,8 @@ namespace FrameWorksExamen.Controllers
         // GET: Invites
         public async Task<IActionResult> Index()
         {
-              return _context.Invite != null ? 
-                          View(await _context.Invite.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Invite'  is null.");
+            var applicationDbContext = _context.Invite.Include(i => i.Event).Include(i => i.Person);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Invites/Details/5
@@ -36,6 +35,8 @@ namespace FrameWorksExamen.Controllers
             }
 
             var invite = await _context.Invite
+                .Include(i => i.Event)
+                .Include(i => i.Person)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (invite == null)
             {
@@ -48,7 +49,10 @@ namespace FrameWorksExamen.Controllers
         // GET: Invites/Create
         public IActionResult Create()
         {
-            return View();
+            Invite invite = new Invite();
+            ViewData["EventId"] = new SelectList(_context.Event, "Id", "Id");
+            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Id");
+            return View(invite);
         }
 
         // POST: Invites/Create
@@ -58,12 +62,15 @@ namespace FrameWorksExamen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,PersonId,EventId,deleted")] Invite invite)
         {
+            Console.WriteLine("Controller action reached");
             if (ModelState.IsValid)
             {
                 _context.Add(invite);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["EventId"] = new SelectList(_context.Event, "Id", "Id", invite.EventId);
+            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Id", invite.PersonId);
             return View(invite);
         }
 
@@ -80,6 +87,8 @@ namespace FrameWorksExamen.Controllers
             {
                 return NotFound();
             }
+            ViewData["EventId"] = new SelectList(_context.Event, "Id", "Id", invite.EventId);
+            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Id", invite.PersonId);
             return View(invite);
         }
 
@@ -115,6 +124,8 @@ namespace FrameWorksExamen.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["EventId"] = new SelectList(_context.Event, "Id", "Id", invite.EventId);
+            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Id", invite.PersonId);
             return View(invite);
         }
 
@@ -127,6 +138,8 @@ namespace FrameWorksExamen.Controllers
             }
 
             var invite = await _context.Invite
+                .Include(i => i.Event)
+                .Include(i => i.Person)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (invite == null)
             {

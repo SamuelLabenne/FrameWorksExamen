@@ -32,6 +32,7 @@ namespace FrameWorksExamen.Data
                 context.SaveChanges();*/
 
                 User user = null;
+                User user2 = null;
 
                 if (!context.Users.Any())
                 {
@@ -40,10 +41,19 @@ namespace FrameWorksExamen.Data
                         FirstName = "System",
                         LastName = "Administrator",
                         UserName = "Admin",
-                        Email = "System.Administrator@GroupSpace.be",
+                        Email = "System.Administrator@app.com",
+                        EmailConfirmed = true
+                    };
+                    user2 = new User
+                    {
+                        FirstName = "Normal",
+                        LastName = "User",
+                        UserName = "Admin",
+                        Email = "normal.user@app.com",
                         EmailConfirmed = true
                     };
                     userManager.CreateAsync(user, "Abc!12345");
+                    userManager.CreateAsync(user2, "Abc!12345");
 
 
                     context.Roles.AddRange(
@@ -53,22 +63,44 @@ namespace FrameWorksExamen.Data
                 }
                 
 
-                if (user != null)
+                if (user != null && user2!=null)
                 {
                     context.UserRoles.AddRange(
-                           new IdentityUserRole<string> { UserId = user.Id, RoleId = "SystemAdministrator" });
+                           new IdentityUserRole<string> { UserId = user.Id, RoleId = "SystemAdministrator" },
+                           new IdentityUserRole<string> { UserId = user2.Id, RoleId = "SystemAdministrator" }
+                           );
                 }
                 if (!context.Event.Any())
                 {
                     context.Event.AddRange
                             (
-                                     new Event { Name = "?", Description = "?", date = DateTime.Today, Location = "Brussel", people = "who", deleted = false },
-                                     new Event { Name = "Hello", Description = "very fun", date = DateTime.Today, Location = "nergens", people = "everyone", deleted = false }
+                                     new Event { Name = "Festival", Description = "feestje in boom", date = DateTime.Today, Location = "Brussel", people = "who", deleted = false },
+                                     new Event { Name = "BBQ", Description = "very fun", date = DateTime.Today, Location = "Antwerpen", people = "everyone", deleted = false }
 
                             );
                     context.SaveChanges();
                 }
-                
+                if (!context.Invite.Any())
+                {
+                    context.Invite.AddRange
+                            (
+                                    new Invite { PersonId= 1, EventId=1,  deleted = false },
+                                    new Invite { PersonId = 1, EventId = 1, deleted = false }
+
+                            );
+                    context.SaveChanges();
+                }
+                if (!context.Person.Any())
+                {
+                    context.Person.AddRange
+                            (
+                                    new Person { Name = "Simon", Age = 25, deleted = false },
+                                    new Person { Name = "Greet", Age = 44, deleted = false }
+
+                            );
+                    context.SaveChanges();
+                }
+
             }
         }
     }
