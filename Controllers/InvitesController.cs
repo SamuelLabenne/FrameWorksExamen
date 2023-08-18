@@ -62,7 +62,7 @@ namespace FrameWorksExamen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,PersonId,EventId,deleted")] Invite invite)
         {
-            Console.WriteLine("Controller action reached");
+            
             if (ModelState.IsValid)
             {
                 _context.Add(invite);
