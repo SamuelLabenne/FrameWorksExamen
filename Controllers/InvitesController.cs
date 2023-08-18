@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FrameWorksExamen.Data;
 using FrameWorksExamen.Models;
+using System.Text.RegularExpressions;
 
 namespace FrameWorksExamen.Controllers
 {
@@ -20,10 +21,33 @@ namespace FrameWorksExamen.Controllers
         }
 
         // GET: Invites
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int selectedEvent, int selectedPerson)
         {
-            var applicationDbContext = _context.Invite.Include(i => i.Event).Include(i => i.Person);
-            return View(await applicationDbContext.ToListAsync());
+            /*var applicationDbContext = _context.Invite.Include(i => i.Event).Include(i => i.Person);
+            return View(await applicationDbContext.ToListAsync());*/
+            var filteredInvites = from i in _context.Invite select i;
+            if(selectedEvent != 0)
+            {
+                filteredInvites = from i in filteredInvites where i.EventId == selectedEvent select i;
+
+            }
+            if (selectedPerson != 0)
+            {
+                filteredInvites = from i in filteredInvites where i.PersonId == selectedPerson select i;
+
+            }
+            IQueryable<Event> eventsToSelect = from e in _context.Event orderby e.Name select e;
+            IQueryable<Person> peopleToSelect = from p in _context.Person orderby p.Name select p;
+
+            InviteIndexViewModel inviteIndexViewModel = new InviteIndexViewModel()
+            {
+                FilteredInvites = await filteredInvites.ToListAsync(),
+                SelectedEvent = selectedEvent,
+                SelectedPerson = selectedPerson,
+                PeopleToSelect = new SelectList(await peopleToSelect.ToListAsync(), "Id", "Name", selectedPerson),
+                EventsToSelect = new SelectList(await eventsToSelect.ToListAsync(), "Id","Name", selectedEvent)
+            };
+            return View(inviteIndexViewModel);
         }
 
         // GET: Invites/Details/5
@@ -62,7 +86,7 @@ namespace FrameWorksExamen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,PersonId,EventId,deleted")] Invite invite)
         {
-            
+            Console.WriteLine("Controller action reached");
             if (ModelState.IsValid)
             {
                 _context.Add(invite);

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<FrameWorksExamen.Models.Invite>
+﻿
+@model FrameWorksExamen.Models.InviteIndexViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -9,29 +10,44 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<p>
+    <form asp-controller="Invites" asp-action="Index" method="get">
+        Event: <select asp-for="SelectedEvent" asp-items="Model.EventsToSelect">
+        <option value="0">Allemaal</option>
+        </select>
+        &nbsp;
+        Person: <select asp-for="SelectedPerson" asp-items="Model.PeopleToSelect">
+            <option value="0">Allemaal</option>
+        </select>
+        &nbsp;
+        <input type="submit" value="Filter" />
+    </form>
+</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Person)
+                @Html.DisplayNameFor(model => model.FilteredInvites[0].Person)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event)
+                @Html.DisplayNameFor(model => model.FilteredInvites[0].Event)
             </th>
             
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.FilteredInvites) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Person.Name)
+                @Html.DisplayFor(modelItem => item.Person.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Event.Name)
+                @Html.DisplayFor(modelItem => item.Event.Id)
             </td>
-            
+            <td>
+                @Html.DisplayFor(modelItem => item.deleted)
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
