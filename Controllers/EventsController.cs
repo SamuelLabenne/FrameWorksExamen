@@ -23,7 +23,7 @@ namespace FrameWorksExamen.Controllers
         // GET: Events
         public async Task<IActionResult> Index(string searchField, string searchField2)
         {
-            var events = from e in _context.Event
+            var events = from e in _context.Event.Include(e=>e.Invited)
                          where (e.deleted.Equals(false))
                          orderby e.Name
                          select e;
