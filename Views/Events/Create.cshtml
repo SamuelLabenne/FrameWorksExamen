@@ -37,11 +37,10 @@
                 <input asp-for="people" class="form-control" />
                 <span asp-validation-for="people" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="deleted" /> @Html.DisplayNameFor(model => model.deleted)
-                </label>
-            </div>
+           <div>
+                <label asp-for="PeopleId" class="control-label"></label>
+                <select multiple="multiple" asp-for="PeopleId" class ="form-control" asp-items="ViewBag.PeopleId"></select>
+            </div
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

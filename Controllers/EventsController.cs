@@ -65,11 +65,23 @@ namespace FrameWorksExamen.Controllers
 
             return View(@event);
         }
-        [Authorize(Roles="admin")]
+        //[Authorize(Roles="admin")]
         // GET: Events/Create
         public IActionResult Create()
         {
-            return View();
+            Event ev = new Event();
+            ev.PeopleId = new List<int>();
+            if(ev.Invited != null)
+            {
+                foreach(Person p in ev.Invited)
+                {
+                    ev.PeopleId.Add(p.Id);
+                }
+            }
+            ViewData["PeopleId"] = new MultiSelectList(_context.Person.OrderBy(c => c.Name), "Id", "Name");
+            
+            
+            return View(ev);
         }
 
         // POST: Events/Create
@@ -77,14 +89,23 @@ namespace FrameWorksExamen.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Location,date,people,deleted")] Event @event)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Location,date,people,deleted,Invited,PeopleId")] Event @event)
         {
             if (ModelState.IsValid)
             {
+                if(@event.Invited == null)
+                {
+                    @event.Invited = new List<Person>();
+                    foreach(int id in @event.PeopleId)
+                    {
+                        @event.Invited.Add(_context.Person.FirstOrDefault(p => p.Id == id));
+                    }
+                }
                 _context.Add(@event);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["PeopleId"] = new MultiSelectList(_context.Person.OrderBy(c => c.Name), "Id", "Name");
             return View(@event);
         }
 

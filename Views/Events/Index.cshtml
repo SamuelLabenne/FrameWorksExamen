@@ -41,6 +41,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.people)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Invited)
+            </th>
             
             <th></th>
         </tr>
@@ -63,7 +66,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.people)
             </td>
-           
+            @if(item.Invited!=null){
+                <td>
+                    @foreach (var pers in item.Invited)
+                    {
+                        <p>@pers.Name</p>
+                    }
+                </td>
+           }
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

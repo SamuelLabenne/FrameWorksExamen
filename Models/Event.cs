@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FrameWorksExamen.Models
 {
@@ -18,5 +19,8 @@ namespace FrameWorksExamen.Models
         public string people { get; set; }
         [DefaultValue(false)]
         public bool deleted { get; set; }
+        public List<Person>? Invited { get; set; }
+        [NotMapped]
+        public List<int> PeopleId { get; set; }
     }
 }
