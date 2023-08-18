@@ -74,8 +74,8 @@ namespace FrameWorksExamen.Controllers
         public IActionResult Create()
         {
             Invite invite = new Invite();
-            ViewData["EventId"] = new SelectList(_context.Event, "Id", "Id");
-            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Id");
+            ViewData["EventId"] = new SelectList(_context.Event, "Id", "Name");
+            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Name");
             return View(invite);
         }
 
@@ -86,16 +86,10 @@ namespace FrameWorksExamen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,PersonId,EventId,deleted")] Invite invite)
         {
-            Console.WriteLine("Controller action reached");
-            if (ModelState.IsValid)
-            {
-                _context.Add(invite);
+            _context.Add(invite);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["EventId"] = new SelectList(_context.Event, "Id", "Id", invite.EventId);
-            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Id", invite.PersonId);
-            return View(invite);
+            
         }
 
         // GET: Invites/Edit/5
