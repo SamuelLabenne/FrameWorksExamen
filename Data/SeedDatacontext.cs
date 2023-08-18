@@ -12,6 +12,24 @@ namespace FrameWorksExamen.Data
                                                               <DbContextOptions<ApplicationDbContext>>()))
             {
                 context.Database.EnsureCreated();
+                /*context.Users.AddRange(new User
+                    {
+                        FirstName = "System",
+                        LastName = "Administrator",
+                        UserName = "Admin",
+                        Email = "System.Administrator@GroupSpace.be",
+                        EmailConfirmed = true
+                    }, new User
+                    {
+                        FirstName = "System2",
+                        LastName = "Administrator2",
+                        UserName = "Admin",
+                        Email = "System.Administrator@GroupSpace.com",
+                        EmailConfirmed = true
+                    });
+                
+                    //userManager.CreateAsync(user, "Abc!12345");
+                context.SaveChanges();*/
 
                 User user = null;
 
@@ -27,11 +45,14 @@ namespace FrameWorksExamen.Data
                     };
                     userManager.CreateAsync(user, "Abc!12345");
 
+
                     context.Roles.AddRange(
                            new IdentityRole { Id = "User", Name = "User", NormalizedName = "user" },
                            new IdentityRole { Id = "SystemAdministrator", Name = "SystemAdmninistrator", NormalizedName = "systemadministrator" });
-                    context.SaveChanges();
+                    context.SaveChanges();   
                 }
+                
+
                 if (user != null)
                 {
                     context.UserRoles.AddRange(
