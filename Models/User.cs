@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
 
 namespace FrameWorksExamen.Models
 {
@@ -6,5 +7,7 @@ namespace FrameWorksExamen.Models
     {
         public string FirstName { get; set; }  
         public string LastName { get; set; }
+        [DefaultValue(false)]
+        public bool deleted { get; set; }
     }
 }
