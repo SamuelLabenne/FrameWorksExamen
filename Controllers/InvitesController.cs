@@ -25,7 +25,9 @@ namespace FrameWorksExamen.Controllers
         {
             /*var applicationDbContext = _context.Invite.Include(i => i.Event).Include(i => i.Person);
             return View(await applicationDbContext.ToListAsync());*/
-            var filteredInvites = from i in _context.Invite select i;
+            var filteredInvites = from i in _context.Invite
+                                  
+                                  select i;
             if(selectedEvent != 0)
             {
                 filteredInvites = from i in filteredInvites where i.EventId == selectedEvent select i;
@@ -41,7 +43,7 @@ namespace FrameWorksExamen.Controllers
 
             InviteIndexViewModel inviteIndexViewModel = new InviteIndexViewModel()
             {
-                FilteredInvites = await filteredInvites.Include(i => i.Event).Include(i => i.Person).ToListAsync(),
+                FilteredInvites = await filteredInvites.Include(i => i.Event).Include(i => i.Person).Include(i=>i.Sender).ToListAsync(),
                 SelectedEvent = selectedEvent,
                 SelectedPerson = selectedPerson,
                 PeopleToSelect = new SelectList(await peopleToSelect.ToListAsync(), "Id", "Name", selectedPerson),
@@ -84,8 +86,9 @@ namespace FrameWorksExamen.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PersonId,EventId,deleted")] Invite invite)
+        public async Task<IActionResult> Create([Bind("Id,PersonId,EventId,deleted,Sender,SenderId")] Invite invite)
         {
+            invite.Sender = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
             _context.Add(invite);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -172,6 +175,7 @@ namespace FrameWorksExamen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            
             if (_context.Invite == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Invite'  is null.");

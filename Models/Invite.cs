@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FrameWorksExamen.Models
@@ -13,6 +14,12 @@ namespace FrameWorksExamen.Models
         [ForeignKey("Event")]
         public int EventId { get; set; }
         public Event Event { get; set; }
+        [ForeignKey("User")]
+        [Display(Name = "Verzonden door")]
+        
+        public string SenderId { get; set; } = "-";
+
+        public User? Sender { get; set; }
 
         [DefaultValue(false)]
         public bool deleted { get; set; }

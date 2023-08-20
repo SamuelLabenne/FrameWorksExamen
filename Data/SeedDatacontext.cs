@@ -1,6 +1,7 @@
 ﻿using FrameWorksExamen.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Utilities;
 
 namespace FrameWorksExamen.Data
 {
@@ -33,9 +34,13 @@ namespace FrameWorksExamen.Data
 
                 User user = null;
                 User user2 = null;
+                
 
                 if (!context.Users.Any())
                 {
+                   User dummy = new User { Id = "-", FirstName = "-", LastName = "-", UserName = "-", Email = "?@?.?" };
+                    context.Users.Add(dummy);
+                    context.SaveChanges();
                     user = new User
                     {
                         FirstName = "System",
@@ -48,12 +53,12 @@ namespace FrameWorksExamen.Data
                     {
                         FirstName = "Normal",
                         LastName = "User",
-                        UserName = "Admin",
+                        UserName = "User",
                         Email = "normal.user@app.com",
                         EmailConfirmed = true
                     };
-                    userManager.CreateAsync(user, "Abc!12345");
-                    userManager.CreateAsync(user2, "Abc!12345");
+                    userManager.CreateAsync(user, "Abcd!1234");
+                    userManager.CreateAsync(user2, "Abcd!1234");
 
 
                     context.Roles.AddRange(
@@ -67,7 +72,7 @@ namespace FrameWorksExamen.Data
                 {
                     context.UserRoles.AddRange(
                            new IdentityUserRole<string> { UserId = user.Id, RoleId = "SystemAdministrator" },
-                           new IdentityUserRole<string> { UserId = user2.Id, RoleId = "SystemAdministrator" }
+                           new IdentityUserRole<string> { UserId = user2.Id, RoleId = "User" }
                            );
                 }
                 if (!context.Event.Any())
@@ -84,8 +89,8 @@ namespace FrameWorksExamen.Data
                 {
                     context.Invite.AddRange
                             (
-                                    new Invite { PersonId= 1, EventId=1,  deleted = false },
-                                    new Invite { PersonId = 1, EventId = 1, deleted = false }
+                                    new Invite { PersonId= 1, EventId=1, SenderId="-", deleted = false },
+                                    new Invite { PersonId = 1, EventId = 1, SenderId = "-", deleted = false }
 
                             );
                     context.SaveChanges();

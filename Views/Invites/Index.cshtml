@@ -32,6 +32,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.FilteredInvites[0].Event)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FilteredInvites[0].Sender)
+            </th>
             
             <th></th>
         </tr>
@@ -40,13 +43,13 @@
 @foreach (var item in Model.FilteredInvites) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Person.Id)
+                @Html.DisplayFor(modelItem => item.Person.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Event.Id)
+                @Html.DisplayFor(modelItem => item.Event.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.deleted)
+                @Html.DisplayFor(modelItem => item.Sender.FirstName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
