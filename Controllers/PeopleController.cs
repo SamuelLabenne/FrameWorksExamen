@@ -22,8 +22,12 @@ namespace FrameWorksExamen.Controllers
         // GET: People
         public async Task<IActionResult> Index()
         {
-              return _context.Person != null ? 
-                          View(await _context.Person.ToListAsync()) :
+            var people = from p in _context.Person.Include(p => p.Events)
+                         where (p.deleted.Equals(false))
+                         orderby p.Name
+                         select p;
+            return _context.Person != null ? 
+                          View(await people.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Person'  is null.");
         }
 
@@ -48,7 +52,19 @@ namespace FrameWorksExamen.Controllers
         // GET: People/Create
         public IActionResult Create()
         {
-            return View();
+            Person p = new Person();
+            p.EventsId = new List<int>();
+            if (p.Events != null)
+            {
+                foreach (Event e in p.Events)
+                {
+                    p.EventsId.Add(e.Id);
+                }
+            }
+            ViewData["EventsId"] = new MultiSelectList(_context.Event.OrderBy(e => e.Name), "Id", "Name", p.EventsId);
+
+
+            return View(p);
         }
 
         // POST: People/Create
@@ -56,16 +72,27 @@ namespace FrameWorksExamen.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Age,deleted")] Person person)
+        public async Task<IActionResult> Create([Bind("Id,Name,Age,deleted,EventsId,Events")] Person person)
         {
             if (ModelState.IsValid)
             {
+                if (person.Events == null)
+                {
+                    person.Events = new List<Event>();
+                    foreach (int id in person.EventsId)
+                    {
+                        person.Events.Add(_context.Event.FirstOrDefault(e => e.Id == id));
+                    }
+                }
                 _context.Add(person);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(person);
-        }
+
+                ViewData["EventsId"] = new MultiSelectList(_context.Event.OrderBy(e => e.Name), "Id", "Name", person.EventsId);
+                return View(person);
+            }
+        
 
         // GET: People/Edit/5
         public async Task<IActionResult> Edit(int? id)

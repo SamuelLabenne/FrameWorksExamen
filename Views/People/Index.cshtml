@@ -19,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.Age)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.deleted)
+                @Html.DisplayNameFor(model => model.Events)
             </th>
             <th></th>
         </tr>
@@ -33,9 +33,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Age)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.deleted)
-            </td>
+            
+                @if (item.Events != null)
+                {
+                    <td>
+                        @foreach (var ev in item.Events)
+                        {
+                            <p>@ev.Name</p>
+                        }
+                    </td>
+                }
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

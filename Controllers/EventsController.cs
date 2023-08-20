@@ -65,7 +65,7 @@ namespace FrameWorksExamen.Controllers
 
             return View(@event);
         }
-        //[Authorize(Roles="admin")]
+        //[Authorize(Roles="SystemAdministrator")]
         // GET: Events/Create
         public IActionResult Create()
         {
