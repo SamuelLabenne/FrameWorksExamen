@@ -17,7 +17,7 @@ namespace FrameWorksExamen.Models
         [ForeignKey("User")]
         [Display(Name = "Verzonden door")]
         
-        public string SenderId { get; set; } = "-";
+        public string SenderId { get; set; } = "1";
 
         public User? Sender { get; set; }
 

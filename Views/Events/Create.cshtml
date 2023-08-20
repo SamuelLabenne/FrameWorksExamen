@@ -1,10 +1,10 @@
 ﻿@model FrameWorksExamen.Models.Event
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Event";
 }
 
-<h1>Create</h1>
+<h1>Create event</h1>
 
 <h4>Event</h4>
 <hr />
@@ -32,11 +32,7 @@
                 <input asp-for="date" class="form-control" />
                 <span asp-validation-for="date" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="people" class="control-label"></label>
-                <input asp-for="people" class="form-control" />
-                <span asp-validation-for="people" class="text-danger"></span>
-            </div>
+            
            <div>
                 <label asp-for="PeopleId" class="control-label"></label>
                 <select multiple="multiple" asp-for="PeopleId" class ="form-control" asp-items="ViewBag.PeopleId"></select>

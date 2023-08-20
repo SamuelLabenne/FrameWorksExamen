@@ -16,7 +16,7 @@ namespace FrameWorksExamen.Models
         [DataType(DataType.Date)]
         public DateTime date { get; set; }
         [DataType(DataType.Text)]
-        public string people { get; set; }
+        
         [DefaultValue(false)]
         public bool deleted { get; set; }
         public List<Person>? Invited { get; set; }

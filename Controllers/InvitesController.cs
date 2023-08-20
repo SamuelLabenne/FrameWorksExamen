@@ -23,10 +23,9 @@ namespace FrameWorksExamen.Controllers
         // GET: Invites
         public async Task<IActionResult> Index(int selectedEvent, int selectedPerson)
         {
-            /*var applicationDbContext = _context.Invite.Include(i => i.Event).Include(i => i.Person);
-            return View(await applicationDbContext.ToListAsync());*/
+           
             var filteredInvites = from i in _context.Invite
-                                  
+                                  where (i.deleted.Equals(false))
                                   select i;
             if(selectedEvent != 0)
             {
@@ -108,8 +107,8 @@ namespace FrameWorksExamen.Controllers
             {
                 return NotFound();
             }
-            ViewData["EventId"] = new SelectList(_context.Event, "Id", "Id", invite.EventId);
-            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Id", invite.PersonId);
+            ViewData["EventId"] = new SelectList(_context.Event, "Id", "Name", invite.EventId);
+            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Name", invite.PersonId);
             return View(invite);
         }
 
@@ -118,7 +117,7 @@ namespace FrameWorksExamen.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PersonId,EventId,deleted")] Invite invite)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,PersonId,EventId,deleted,Sender,SenderId")] Invite invite)
         {
             if (id != invite.Id)
             {
@@ -145,8 +144,8 @@ namespace FrameWorksExamen.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EventId"] = new SelectList(_context.Event, "Id", "Id", invite.EventId);
-            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Id", invite.PersonId);
+            ViewData["EventId"] = new SelectList(_context.Event, "Id", "Name", invite.EventId);
+            ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Name", invite.PersonId);
             return View(invite);
         }
 
@@ -183,7 +182,7 @@ namespace FrameWorksExamen.Controllers
             var invite = await _context.Invite.FindAsync(id);
             if (invite != null)
             {
-                _context.Invite.Remove(invite);
+                invite.deleted=true;
             }
             
             await _context.SaveChangesAsync();

@@ -42,10 +42,12 @@ namespace FrameWorksExamen.Controllers
                          orderby e.Description
                          select e;
             }
+            
 
             return _context.Event != null ?
                           View(await events.ToListAsync()) :
                           Problem("Entity set 'SL_Frameworks_FinalContext.Event'  is null.");
+
         }
 
         // GET: Events/Details/5
@@ -62,6 +64,7 @@ namespace FrameWorksExamen.Controllers
             {
                 return NotFound();
             }
+            ViewData["Name"] = @event.Name;
 
             return View(@event);
         }
@@ -122,6 +125,7 @@ namespace FrameWorksExamen.Controllers
             {
                 return NotFound();
             }
+            ViewData["PeopleId"] = new MultiSelectList(_context.Person.OrderBy(c => c.Name), "Id", "Name");
             return View(@event);
         }
 
@@ -130,7 +134,7 @@ namespace FrameWorksExamen.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Location,date,people,deleted")] Event @event)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Location,date,people,deleted,Invited,PeopleId")] Event @event)
         {
             if (id != @event.Id)
             {
@@ -141,6 +145,14 @@ namespace FrameWorksExamen.Controllers
             {
                 try
                 {
+                    if (@event.Invited == null)
+                    {
+                        @event.Invited = new List<Person>();
+                        foreach (int i in @event.PeopleId)
+                        {
+                            @event.Invited.Add(_context.Person.FirstOrDefault(p => p.Id == i));
+                        }
+                    }
                     _context.Update(@event);
                     await _context.SaveChangesAsync();
                 }
@@ -190,7 +202,7 @@ namespace FrameWorksExamen.Controllers
             var @event = await _context.Event.FindAsync(id);
             if (@event != null)
             {
-                //_context.Event.Remove(@event);
+                
                 @event.deleted = true;
             }
             

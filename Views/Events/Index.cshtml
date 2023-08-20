@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<FrameWorksExamen.Models.Event>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Events";
 }
 
-<h1>Index</h1>
+<h1>All Events</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Add an Event</a>
 </p>
 <p>
     <form asp-action="Index" asp-controller="Events" method="get">
@@ -38,9 +38,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.date)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.people)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.Invited)
             </th>
@@ -63,9 +61,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.date)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.people)
-            </td>
+            
             @if(item.Invited!=null){
                 <td>
                     @foreach (var pers in item.Invited)

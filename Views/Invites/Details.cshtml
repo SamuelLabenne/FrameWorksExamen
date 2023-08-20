@@ -1,10 +1,10 @@
 ﻿@model FrameWorksExamen.Models.Invite
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Invite details";
 }
 
-<h1>Details</h1>
+<h1>Invite details</h1>
 
 <div>
     <h4>Invite</h4>
@@ -14,20 +14,15 @@
             @Html.DisplayNameFor(model => model.Person)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Person.Id)
+            @Html.DisplayFor(model => model.Person.Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Event)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Event.Id)
+            @Html.DisplayFor(model => model.Event.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.deleted)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.deleted)
-        </dd>
+       
     </dl>
 </div>
 <div>

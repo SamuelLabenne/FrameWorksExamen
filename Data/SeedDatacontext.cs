@@ -13,24 +13,7 @@ namespace FrameWorksExamen.Data
                                                               <DbContextOptions<ApplicationDbContext>>()))
             {
                 context.Database.EnsureCreated();
-                /*context.Users.AddRange(new User
-                    {
-                        FirstName = "System",
-                        LastName = "Administrator",
-                        UserName = "Admin",
-                        Email = "System.Administrator@GroupSpace.be",
-                        EmailConfirmed = true
-                    }, new User
-                    {
-                        FirstName = "System2",
-                        LastName = "Administrator2",
-                        UserName = "Admin",
-                        Email = "System.Administrator@GroupSpace.com",
-                        EmailConfirmed = true
-                    });
                 
-                    //userManager.CreateAsync(user, "Abc!12345");
-                context.SaveChanges();*/
 
                 User user = null;
                 User user2 = null;
@@ -38,11 +21,10 @@ namespace FrameWorksExamen.Data
 
                 if (!context.Users.Any())
                 {
-                   User dummy = new User { Id = "-", FirstName = "-", LastName = "-", UserName = "-", Email = "?@?.?" };
-                    context.Users.Add(dummy);
-                    context.SaveChanges();
+                   
                     user = new User
                     {
+                        Id="1",
                         FirstName = "System",
                         LastName = "Administrator",
                         UserName = "Admin",
@@ -79,22 +61,24 @@ namespace FrameWorksExamen.Data
                 {
                     context.Event.AddRange
                             (
-                                     new Event { Name = "Festival", Description = "feestje in boom", date = DateTime.Today, Location = "Brussel", people = "who", deleted = false },
-                                     new Event { Name = "BBQ", Description = "very fun", date = DateTime.Today, Location = "Antwerpen", people = "everyone", deleted = false }
+                                     new Event { Name = "Festival", Description = "feestje in boom", date = DateTime.Today, Location = "Brussel", deleted = false },
+                                     new Event { Name = "BBQ", Description = "very fun", date = DateTime.Today, Location = "Antwerpen", deleted = false }
 
                             );
                     context.SaveChanges();
-                }
-                if (!context.Invite.Any())
+                    if (!context.Invite.Any())
                 {
                     context.Invite.AddRange
                             (
-                                    new Invite { PersonId= 1, EventId=1, SenderId="-", deleted = false },
-                                    new Invite { PersonId = 1, EventId = 1, SenderId = "-", deleted = false }
+                                    new Invite { PersonId= 1, EventId=1, SenderId="1", deleted = false },
+                                    new Invite { PersonId = 2, EventId = 1, SenderId = "1", deleted = false }
 
                             );
                     context.SaveChanges();
                 }
+
+                }
+                
                 if (!context.Person.Any())
                 {
                     context.Person.AddRange

@@ -107,6 +107,7 @@ namespace FrameWorksExamen.Controllers
             {
                 return NotFound();
             }
+            ViewData["EventsId"] = new MultiSelectList(_context.Event.OrderBy(e => e.Name), "Id", "Name", person.EventsId);
             return View(person);
         }
 
@@ -115,7 +116,7 @@ namespace FrameWorksExamen.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Age,deleted")] Person person)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Age,deleted,EventsId,Events")] Person person)
         {
             if (id != person.Id)
             {
@@ -126,6 +127,14 @@ namespace FrameWorksExamen.Controllers
             {
                 try
                 {
+                    if (person.Events == null)
+                    {
+                        person.Events = new List<Event>();
+                        foreach (int i in person.EventsId)
+                        {
+                            person.Events.Add(_context.Event.FirstOrDefault(e => e.Id == i));
+                        }
+                    }
                     _context.Update(person);
                     await _context.SaveChangesAsync();
                 }
@@ -175,7 +184,7 @@ namespace FrameWorksExamen.Controllers
             var person = await _context.Person.FindAsync(id);
             if (person != null)
             {
-                _context.Person.Remove(person);
+                person.deleted = true;
             }
             
             await _context.SaveChangesAsync();
