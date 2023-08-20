@@ -59,6 +59,8 @@ namespace FrameWorksExamen.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
         }
 
         private async Task LoadAsync(User user)
@@ -70,6 +72,7 @@ namespace FrameWorksExamen.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                FirstName = user.FirstName, LastName = user.LastName,
                 PhoneNumber = phoneNumber
             };
         }
@@ -99,6 +102,13 @@ namespace FrameWorksExamen.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
+            if(user.FirstName != Input.FirstName || user.LastName!=Input.LastName)
+            {
+                user.FirstName = Input.FirstName;
+            user.LastName = Input.LastName;
+            _userManager.UpdateAsync(user);
+            }
+           
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
