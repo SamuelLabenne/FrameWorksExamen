@@ -11,13 +11,14 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FrameWorksExamen.Controllers
 {
-    public class EventsController : Controller
+    public class EventsController : ApplicationController
     {
-        private readonly ApplicationDbContext _context;
+        //private readonly ApplicationDbContext _context;
 
-        public EventsController(ApplicationDbContext context)
+        public EventsController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger)
+            : base(context, httpContextAccessor, logger)
         {
-            _context = context;
+
         }
 
         // GET: Events

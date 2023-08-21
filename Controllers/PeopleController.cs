@@ -10,13 +10,14 @@ using FrameWorksExamen.Models;
 
 namespace FrameWorksExamen.Controllers
 {
-    public class PeopleController : Controller
+    public class PeopleController : ApplicationController
     {
-        private readonly ApplicationDbContext _context;
+        //private readonly ApplicationDbContext _context;
 
-        public PeopleController(ApplicationDbContext context)
+        public PeopleController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger)
+            : base(context, httpContextAccessor, logger)
         {
-            _context = context;
+          
         }
 
         // GET: People

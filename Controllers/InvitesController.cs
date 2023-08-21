@@ -11,13 +11,14 @@ using System.Text.RegularExpressions;
 
 namespace FrameWorksExamen.Controllers
 {
-    public class InvitesController : Controller
+    public class InvitesController : ApplicationController
     {
-        private readonly ApplicationDbContext _context;
+        //private readonly ApplicationDbContext _context;
 
-        public InvitesController(ApplicationDbContext context)
+        public InvitesController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger)
+            : base(context, httpContextAccessor, logger)
         {
-            _context = context;
+
         }
 
         // GET: Invites
@@ -87,7 +88,7 @@ namespace FrameWorksExamen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,PersonId,EventId,deleted,Sender,SenderId")] Invite invite)
         {
-            invite.Sender = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+            invite.Sender =_user;
             _context.Add(invite);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

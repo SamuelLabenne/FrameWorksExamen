@@ -1,20 +1,23 @@
-﻿using FrameWorksExamen.Models;
+﻿using FrameWorksExamen.Data;
+using FrameWorksExamen.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace FrameWorksExamen.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ApplicationController
     {
-        private readonly ILogger<HomeController> _logger;
+        
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger)
+            : base(context, httpContextAccessor, logger)
         {
-            _logger = logger;
+
         }
 
         public IActionResult Index()
         {
+            User user = _user;
             return View();
         }
 

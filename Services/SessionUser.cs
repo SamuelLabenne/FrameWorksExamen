@@ -1,5 +1,6 @@
-﻿/*using FrameWorksExamen.Data;
-using FrameWorksExamen.Models.User;
+﻿using FrameWorksExamen.Data;
+using FrameWorksExamen.Models;
+
 
 namespace FrameWorksExamen.Services
 {
@@ -43,9 +44,9 @@ namespace FrameWorksExamen.Services
             await _next(httpContext);
         }
 
-        public static AUser GetUser(HttpContext httpContext)
+        public static User GetUser(HttpContext httpContext)
         {
             return UserDictionary[httpContext.User.Identity.Name == null ? "-" : httpContext.User.Identity.Name].User;
         }
     }
-}*/
+}
