@@ -1,6 +1,6 @@
 ﻿using FrameWorksExamen.Data;
 using FrameWorksExamen.Models;
-
+using System.Globalization;
 
 namespace FrameWorksExamen.Services
 {
@@ -24,6 +24,9 @@ namespace FrameWorksExamen.Services
 
         public async Task Invoke(HttpContext httpContext, ApplicationDbContext dbContext)
         {
+           
+            
+
             string name = httpContext.User.Identity.Name == null ? "-" : httpContext.User.Identity.Name;
             try
             {
