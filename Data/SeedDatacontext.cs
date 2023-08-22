@@ -18,6 +18,13 @@ namespace FrameWorksExamen.Data
                 User user = null;
                 User user2 = null;
                 
+               if(!context.Roles.Any()) {  
+                    context.Roles.AddRange(
+                          new IdentityRole { Id = "User", Name = "User", NormalizedName = "user" },
+                          new IdentityRole { Id = "SystemAdministrator", Name = "SystemAdmninistrator", NormalizedName = "systemadministrator" });
+                context.SaveChanges();} 
+               
+
 
                 if (!context.Users.Any())
                 {
@@ -43,10 +50,7 @@ namespace FrameWorksExamen.Data
                     userManager.CreateAsync(user2, "Abcd!1234");
 
 
-                    context.Roles.AddRange(
-                           new IdentityRole { Id = "User", Name = "User", NormalizedName = "user" },
-                           new IdentityRole { Id = "SystemAdministrator", Name = "SystemAdmninistrator", NormalizedName = "systemadministrator" });
-                    context.SaveChanges();   
+                      
                 }
                 
 
