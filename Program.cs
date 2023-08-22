@@ -99,7 +99,7 @@ app.UseRequestLocalization(options => {
     options.SupportedUICultures = cultures;
 });
 app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
-//app.UseMiddleware<SessionUser>();
+app.UseMiddleware<SessionUser>();
 
 
 

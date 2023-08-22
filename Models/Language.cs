@@ -1,4 +1,4 @@
-﻿using FrameWorksExamen.Data;
+﻿/*using FrameWorksExamen.Data;
 
 namespace FrameWorksExamen.Models
 {
@@ -27,3 +27,4 @@ namespace FrameWorksExamen.Models
         }
     }
 }
+*/
