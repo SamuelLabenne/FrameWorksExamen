@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using NETCore.MailKit.Infrastructure.Internal;
 using System.Globalization;
 
@@ -23,7 +24,11 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
-
+builder.Services.AddControllers();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApplicationName", Version = "v1" });
+});
 
 
 
@@ -89,6 +94,16 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApplication1 v1"));
+}
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 var cultures = new List<CultureInfo> {
     new CultureInfo("en"),
     new CultureInfo("fr"),
@@ -100,7 +115,7 @@ app.UseRequestLocalization(options => {
     options.SupportedUICultures = cultures;
 });
 app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
-app.UseMiddleware<SessionUser>();
+//app.UseMiddleware<SessionUser>();
 
 
 

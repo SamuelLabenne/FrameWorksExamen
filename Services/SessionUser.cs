@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/*using Microsoft.AspNetCore.Http;
 using FrameWorksExamen.Data;
 using FrameWorksExamen.Models;
 using System;
@@ -55,4 +55,4 @@ namespace FrameWorksExamen.Services
             return UserDictionary[httpContext.User.Identity.Name == null ? "-" : httpContext.User.Identity.Name].User;
         }
     }
-}
+}*/
