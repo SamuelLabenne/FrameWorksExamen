@@ -120,4 +120,43 @@
   <data name="Add" xml:space="preserve">
     <value>Ajouter un évenement</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>Tous les évenements</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="Filter1" xml:space="preserve">
+    <value>Filtrer par nom</value>
+  </data>
+  <data name="Filter2" xml:space="preserve">
+    <value>Filtrer par description</value>
+  </data>
+  <data name="Invited" xml:space="preserve">
+    <value>Invité</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Endroit</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Choisissez un nom</value>
+  </data>
+  <data name="Select1" xml:space="preserve">
+    <value>Choisissez une description</value>
+  </data>
 </root>

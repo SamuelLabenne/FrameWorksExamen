@@ -15,7 +15,7 @@ namespace FrameWorksExamen.Models
         [Display(Name = "Datum")]
         [DataType(DataType.Date)]
         public DateTime date { get; set; }
-        [DataType(DataType.Text)]
+        
         
         [DefaultValue(false)]
         public bool deleted { get; set; }

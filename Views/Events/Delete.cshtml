@@ -1,38 +1,41 @@
 ﻿@model FrameWorksExamen.Models.Event
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Delete Event";
 }
 
-<h1>Delete event</h1>
+<h1>@Localizer["Del"]</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>@Localizer["Sure"]</h3>
 <div>
-    <h4>Event</h4>
+    <h4>@Localizer["Event"]</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+        <dt class="col-sm-2">
+            @Localizer["Name"]
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+        <dt class="col-sm-2">
+            @Localizer["Description"]
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
+        <dt class="col-sm-2">
+            @Localizer["Location"]
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Location)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.date)
+        <dt class="col-sm-2">
+            @Localizer["Date"]
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.date)
         </dd>
        
@@ -42,7 +45,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value=@Localizer["Delete"] class="btn btn-danger" /> |
+        <a asp-action="Index">@Localizer["Back"]</a>
     </form>
 </div>

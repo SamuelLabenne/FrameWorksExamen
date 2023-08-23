@@ -117,7 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Welcome" xml:space="preserve">
-    <value>Bienvenue à mon examen</value>
+  <data name="Back" xml:space="preserve">
+    <value>Retour</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Déscription</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="Event" xml:space="preserve">
+    <value>Evenement</value>
+  </data>
+  <data name="Invited" xml:space="preserve">
+    <value>Invités</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Endroit</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Créer un évenement</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Invités</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Sauvegarder</value>
   </data>
 </root>
