@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<FrameWorksExamen.Models.Event>
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
 
 @{
     ViewData["Title"] = "Events";
@@ -7,7 +10,7 @@
 <h1>All Events</h1>
 
 <p>
-    <a asp-action="Create">Add an Event</a>
+    <a asp-action="Create">@Localizer["Add"]</a>
 </p>
 <p>
     <form asp-action="Index" asp-controller="Events" method="get">

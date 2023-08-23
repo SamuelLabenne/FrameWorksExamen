@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FrameWorksExamen.Data;
 using FrameWorksExamen.Models;
+using Microsoft.Extensions.Localization;
 
 namespace FrameWorksExamen.Controllers
 {

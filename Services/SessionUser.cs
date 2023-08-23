@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 namespace FrameWorksExamen.Services
 {
     public class SessionUser
@@ -50,9 +52,22 @@ namespace FrameWorksExamen.Services
             await _next(httpContext);
         }
 
-        public static User GetUser(HttpContext httpContext)
+        public static User GetUser(HttpContext httpContext, ApplicationDbContext dbContext)
         {
-            return UserDictionary[httpContext.User.Identity.Name == null ? "-" : httpContext.User.Identity.Name].User;
+            var userName = httpContext.User.Identity.Name;
+
+            if (UserDictionary.ContainsKey(userName))
+            {
+                var userStats = UserDictionary[userName];
+                if (userStats.User != null)
+                {
+                    return userStats.User;
+                }
+            }
+
+            // If user not found in UserDictionary or User object is null,
+            // retrieve the user from dbContext.Users
+            return dbContext.Users.FirstOrDefault(u => u.UserName == userName);
         }
     }
 }*/

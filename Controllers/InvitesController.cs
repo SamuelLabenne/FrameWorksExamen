@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FrameWorksExamen.Data;
 using FrameWorksExamen.Models;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.Localization;
 
 namespace FrameWorksExamen.Controllers
 {

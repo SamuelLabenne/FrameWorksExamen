@@ -94,7 +94,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
-if (app.Environment.IsDevelopment())
+/*if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
@@ -103,7 +103,7 @@ if (app.Environment.IsDevelopment())
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-});
+});*/
 var cultures = new List<CultureInfo> {
     new CultureInfo("en"),
     new CultureInfo("fr"),

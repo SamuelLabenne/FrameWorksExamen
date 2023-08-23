@@ -8,17 +8,18 @@ using Microsoft.EntityFrameworkCore;
 using FrameWorksExamen.Data;
 using FrameWorksExamen.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Localization;
 
 namespace FrameWorksExamen.Controllers
 {
     public class EventsController : ApplicationController
     {
-        //private readonly ApplicationDbContext _context;
+        private readonly IStringLocalizer<EventsController> _localizer;
 
-        public EventsController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger)
+        public EventsController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger, IStringLocalizer<EventsController> localizer)
             : base(context, httpContextAccessor, logger)
         {
-
+            _localizer = localizer;
         }
 
         // GET: Events

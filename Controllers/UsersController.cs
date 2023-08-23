@@ -3,6 +3,7 @@ using FrameWorksExamen.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Localization;
 
 namespace FrameWorksExamen.Controllers
 {

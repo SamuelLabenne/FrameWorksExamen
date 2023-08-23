@@ -1,6 +1,7 @@
 ﻿using FrameWorksExamen.Data;
 using FrameWorksExamen.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace FrameWorksExamen.Controllers
 {
