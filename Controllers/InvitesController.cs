@@ -13,11 +13,12 @@ namespace FrameWorksExamen.Controllers
 {
     public class InvitesController : ApplicationController
     {
-        //private readonly ApplicationDbContext _context;
+        
 
         public InvitesController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger)
             : base(context, httpContextAccessor, logger)
         {
+         
 
         }
 

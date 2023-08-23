@@ -15,6 +15,7 @@ namespace FrameWorksExamen.Controllers
             : base(context, httpContextAccessor, logger)
         {
             _localizer = localizer;
+            
         }
 
 

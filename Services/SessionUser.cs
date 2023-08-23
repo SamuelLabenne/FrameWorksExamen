@@ -1,7 +1,10 @@
-﻿using FrameWorksExamen.Data;
+﻿using Microsoft.AspNetCore.Http;
+using FrameWorksExamen.Data;
 using FrameWorksExamen.Models;
-using System.Globalization;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 namespace FrameWorksExamen.Services
 {
     public class SessionUser

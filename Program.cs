@@ -26,6 +26,7 @@ builder.Services.AddHttpContextAccessor();
 
 
 
+
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddMvc()
 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)

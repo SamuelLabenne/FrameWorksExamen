@@ -19,7 +19,13 @@ namespace FrameWorksExamen.Controllers
             _context = context;
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
-            _user = SessionUser.GetUser(httpContextAccessor.HttpContext);
+            //_user = SessionUser.GetUser(httpContextAccessor.HttpContext);
+
+            string? userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            if (userName == null)
+                userName = "-";
+            _user = _context.Users.FirstOrDefault(u => u.UserName == userName);
+
         }
     } 
 }
