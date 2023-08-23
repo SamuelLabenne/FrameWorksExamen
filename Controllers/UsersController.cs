@@ -9,10 +9,11 @@ namespace FrameWorksExamen.Controllers
 {
     public class UsersController : ApplicationController
     {
-        public UsersController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger)
+        private readonly IStringLocalizer<UsersController> _localizer;
+        public UsersController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger, IStringLocalizer<UsersController> localizer)
             : base(context, httpContextAccessor, logger)
         {
-
+            _localizer = localizer;
         }
         public IActionResult Index(string userName, string firstName, string lastName, string email)
         {

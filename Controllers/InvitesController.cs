@@ -14,12 +14,12 @@ namespace FrameWorksExamen.Controllers
 {
     public class InvitesController : ApplicationController
     {
-        
 
-        public InvitesController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger)
+        private readonly IStringLocalizer<PeopleController> _localizer;
+        public InvitesController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger, IStringLocalizer<PeopleController> localizer)
             : base(context, httpContextAccessor, logger)
         {
-         
+         _localizer = localizer;
 
         }
 

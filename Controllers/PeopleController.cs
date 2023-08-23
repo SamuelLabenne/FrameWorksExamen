@@ -13,12 +13,12 @@ namespace FrameWorksExamen.Controllers
 {
     public class PeopleController : ApplicationController
     {
-        //private readonly ApplicationDbContext _context;
+        private readonly IStringLocalizer<PeopleController> _localizer;
 
-        public PeopleController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger)
+        public PeopleController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, ILogger<ApplicationController> logger, IStringLocalizer<PeopleController> localizer)
             : base(context, httpContextAccessor, logger)
         {
-          
+            _localizer = localizer;
         }
 
         // GET: People
