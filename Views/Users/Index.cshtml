@@ -5,31 +5,31 @@
 @inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Gebruikers";
+    ViewData["Title"] = "Users";
     string VerticaalStreepje = " | ";
     string komma = "";
 
 }
 
-<h1>Gebruikers</h1>
+<h1>@Localizer["Users"]</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                Gebruiker
+                @Localizer["User"]
             </th>
             <th>
-                Voornaam
+                @Localizer["FirstName"]
             </th>
             <th>
-                Achternaam
+                @Localizer["LastName"]
             </th>
             <th>
-                E-mail
+                @Localizer["Email"]
             </th>
             <th>
-                Rollen
+                @Localizer["Roles"]
             </th>
             <th></th>
         </tr>

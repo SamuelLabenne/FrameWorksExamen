@@ -70,7 +70,7 @@ namespace FrameWorksExamen.Controllers
 
             return View(@event);
         }
-        //[Authorize(Roles="SystemAdministrator")]
+        [Authorize]
         // GET: Events/Create
         public IActionResult Create()
         {
@@ -113,7 +113,7 @@ namespace FrameWorksExamen.Controllers
             ViewData["PeopleId"] = new MultiSelectList(_context.Person.OrderBy(c => c.Name), "Id", "Name");
             return View(@event);
         }
-
+        [Authorize]
         // GET: Events/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -173,7 +173,7 @@ namespace FrameWorksExamen.Controllers
             }
             return View(@event);
         }
-
+        [Authorize]
         // GET: Events/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
