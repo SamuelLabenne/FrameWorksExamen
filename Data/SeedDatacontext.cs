@@ -7,60 +7,53 @@ namespace FrameWorksExamen.Data
 {
     public class SeedDatacontext
     {
-        public static void Initialize(IServiceProvider serviceProvider, UserManager<User> userManager)
+        public static async Task InitializeAsync(IServiceProvider serviceProvider, UserManager<User> userManager)
         {
             using (var context = new ApplicationDbContext(serviceProvider.GetRequiredService
                                                               <DbContextOptions<ApplicationDbContext>>()))
             {
                 context.Database.EnsureCreated();
-                
+                context.Database.Migrate();
 
-                User user = null;
-                User user2 = null;
-                
-               if(!context.Roles.Any()) {  
-                    context.Roles.AddRange(
-                          new IdentityRole { Id = "User", Name = "User", NormalizedName = "user" },
-                          new IdentityRole { Id = "SystemAdministrator", Name = "SystemAdmninistrator", NormalizedName = "systemadministrator" });
-                context.SaveChanges();} 
-               
-
-
-                if (!context.Users.Any())
-                {
-                   
-                    user = new User
+               if(!context.Roles.Any()) {
+                    User user = new User
                     {
-                        Id="1",
+                        
                         FirstName = "System",
                         LastName = "Administrator",
                         UserName = "Admin",
                         Email = "System.Administrator@app.com",
                         EmailConfirmed = true
                     };
-                    user2 = new User
+                    User user2 = new User
                     {
+                        
                         FirstName = "Normal",
                         LastName = "User",
                         UserName = "User",
                         Email = "normal.user@app.com",
                         EmailConfirmed = true
                     };
-                    userManager.CreateAsync(user, "Abcd!1234");
-                    userManager.CreateAsync(user2, "Abcd!1234");
+                    await userManager.CreateAsync(user, "Abcd!1234");
+                    await userManager.CreateAsync(user2, "Abcd!1234");
+                    
 
+                    context.Roles.AddRange(
+                          new IdentityRole { Id = "User", Name = "User", NormalizedName = "user" },
+                          new IdentityRole { Id = "SystemAdministrator", Name = "SystemAdmninistrator", NormalizedName = "systemadministrator" });
+                    context.SaveChanges();
 
-                      
-                }
-                
-
-                if (user != null && user2!=null)
-                {
+                    
+                    
                     context.UserRoles.AddRange(
                            new IdentityUserRole<string> { UserId = user.Id, RoleId = "SystemAdministrator" },
                            new IdentityUserRole<string> { UserId = user2.Id, RoleId = "User" }
                            );
-                }
+                    context.SaveChanges();
+                } 
+               User normalUser = context.Users.FirstOrDefault(u => u.UserName == "User");
+               User administrator = context.Users.FirstOrDefault(u => u.UserName == "Admin");
+
                 if (!context.Event.Any())
                 {
                     context.Event.AddRange
@@ -70,16 +63,8 @@ namespace FrameWorksExamen.Data
 
                             );
                     context.SaveChanges();
-                    if (!context.Invite.Any())
-                {
-                    context.Invite.AddRange
-                            (
-                                    new Invite { PersonId= 1, EventId=1, SenderId="1", deleted = false },
-                                    new Invite { PersonId = 2, EventId = 1, SenderId = "1", deleted = false }
 
-                            );
-                    context.SaveChanges();
-                }
+                    
 
                 }
                 
@@ -93,8 +78,8 @@ namespace FrameWorksExamen.Data
                             );
                     context.SaveChanges();
                 }
-
-            }
+                
+            } 
         }
     }
 }

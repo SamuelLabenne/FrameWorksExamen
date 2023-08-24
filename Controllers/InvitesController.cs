@@ -9,6 +9,7 @@ using FrameWorksExamen.Data;
 using FrameWorksExamen.Models;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FrameWorksExamen.Controllers
 {
@@ -73,7 +74,7 @@ namespace FrameWorksExamen.Controllers
 
             return View(invite);
         }
-
+        [Authorize]
         // GET: Invites/Create
         public IActionResult Create()
         {
@@ -96,7 +97,7 @@ namespace FrameWorksExamen.Controllers
                 return RedirectToAction(nameof(Index));
             
         }
-
+        [Authorize]
         // GET: Invites/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -106,6 +107,7 @@ namespace FrameWorksExamen.Controllers
             }
 
             var invite = await _context.Invite.FindAsync(id);
+            
             if (invite == null)
             {
                 return NotFound();
@@ -122,6 +124,7 @@ namespace FrameWorksExamen.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,PersonId,EventId,deleted,Sender,SenderId")] Invite invite)
         {
+            
             if (id != invite.Id)
             {
                 return NotFound();
@@ -151,7 +154,7 @@ namespace FrameWorksExamen.Controllers
             ViewData["PersonId"] = new SelectList(_context.Person, "Id", "Name", invite.PersonId);
             return View(invite);
         }
-
+        [Authorize]
         // GET: Invites/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

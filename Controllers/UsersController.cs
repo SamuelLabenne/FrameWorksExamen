@@ -9,7 +9,7 @@ using System.Data;
 
 namespace FrameWorksExamen.Controllers
 {
-    
+    [Authorize]
     public class UsersController : ApplicationController
     {
         private readonly IStringLocalizer<UsersController> _localizer;

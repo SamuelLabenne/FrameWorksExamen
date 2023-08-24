@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FrameWorksExamen.Data;
 using FrameWorksExamen.Models;
 using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FrameWorksExamen.Controllers
 {
@@ -20,7 +21,7 @@ namespace FrameWorksExamen.Controllers
         {
             _localizer = localizer;
         }
-
+        
         // GET: People
         public async Task<IActionResult> Index()
         {
@@ -50,7 +51,7 @@ namespace FrameWorksExamen.Controllers
 
             return View(person);
         }
-
+        [Authorize]
         // GET: People/Create
         public IActionResult Create()
         {
@@ -94,8 +95,8 @@ namespace FrameWorksExamen.Controllers
                 ViewData["EventsId"] = new MultiSelectList(_context.Event.OrderBy(e => e.Name), "Id", "Name", person.EventsId);
                 return View(person);
             }
-        
 
+        [Authorize]
         // GET: People/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -155,7 +156,7 @@ namespace FrameWorksExamen.Controllers
             }
             return View(person);
         }
-
+        [Authorize]
         // GET: People/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

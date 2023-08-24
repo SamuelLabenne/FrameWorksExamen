@@ -123,7 +123,7 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var userManager = services.GetRequiredService<UserManager<User>>();
-    SeedDatacontext.Initialize(services,userManager);
+    await SeedDatacontext.InitializeAsync(services,userManager);
     
 
 }
