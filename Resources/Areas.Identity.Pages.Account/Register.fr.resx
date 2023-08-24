@@ -117,16 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Hello" xml:space="preserve">
-    <value>Bonjour</value>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirmer mot de passe</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Créer un nouveau compte</value>
+  </data>
+  <data name="FakeMail" xml:space="preserve">
+    <value>john@doe.com</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Prénom</value>
+  </data>
+  <data name="Forgot" xml:space="preserve">
+    <value>Mot de passe oublié</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Nom</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Se connecter</value>
   </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Se déconnecter</value>
+  <data name="LoginText" xml:space="preserve">
+    <value>Se connecter avec un compte existant</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mot de passe</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>Créer un compte</value>
+    <value>Registrer</value>
+  </data>
+  <data name="RegisterNew" xml:space="preserve">
+    <value>Créer un nouveau compte</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Se rappeler de moi?</value>
+  </data>
+  <data name="Resend" xml:space="preserve">
+    <value>Renvoyer le mail de vérification</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
   </data>
 </root>
